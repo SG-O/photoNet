@@ -21,7 +21,7 @@ plugins {
  */
 
 // Load keystore
-def keystorePropertiesFile = rootProject.file("keystore.properties");
+def keystorePropertiesFile = rootProject.file("keystore.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
@@ -47,6 +47,7 @@ android {
         multiDexEnabled false
         signingConfig signingConfigs.release
         proguardFiles 'proguard-rules.pro'
+        setProperty("archivesBaseName", applicationId + "-" + versionName)
     }
 
     buildTypes {
