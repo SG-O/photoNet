@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/baseline_broken_image_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/baseline_folder_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/baseline_text_snippet_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_msla_01.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_broken_image_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_delete_forever_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_file_download_20.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_file_download_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_play_arrow_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/outline_refresh_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1905" />
+        <entry key="app/src/main/res/layout/activity_about.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_license.xml" value="0.17349726775956284" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/content_about.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/content_discover.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/content_license.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.12152777777777778" />
+        <entry key="app/src/main/res/layout/content_printerEdit.xml" value="0.15915300546448088" />
+        <entry key="app/src/main/res/layout/content_printer_edit.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/dialog_discovery.xml" value="0.2361111111111111" />
+        <entry key="app/src/main/res/layout/fragment_details_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_files.xml" value="0.12152777777777778" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.12152777777777778" />
+        <entry key="app/src/main/res/layout/item_dependency.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_discover.xml" value="0.23680555555555555" />
+        <entry key="app/src/main/res/layout/item_file.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_printer.xml" value="0.12152777777777778" />
+        <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2877637130801688" />
+        <entry key="app/src/main/res/menu/main.xml" value="0.27870370370370373" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1905" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1905" />
+        <entry key="app/src/main/res/xml/dependencies.xml" value="0.259963768115942" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
