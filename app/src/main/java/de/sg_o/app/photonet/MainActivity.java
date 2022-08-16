@@ -37,6 +37,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import de.sg_o.app.photonet.menu.PrintersAdapter;
+import de.sg_o.app.photonet.ui.main.DiscoveryDialogFragment;
+import de.sg_o.app.photonet.ui.main.PrinterEditDialogFragment;
 import de.sg_o.lib.photoNet.manager.Environment;
 import de.sg_o.lib.photoNet.printer.Printer;
 

@@ -16,7 +16,7 @@
  *
  */
 
-package de.sg_o.app.photonet;
+package de.sg_o.app.photonet.ui.main;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -39,6 +39,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import de.sg_o.app.photonet.MainActivity;
+import de.sg_o.app.photonet.R;
 import de.sg_o.app.photonet.menu.DiscoveryAdapter;
 
 public class DiscoveryDialogFragment extends DialogFragment implements DiscoveryAdapter.ItemClickListener{

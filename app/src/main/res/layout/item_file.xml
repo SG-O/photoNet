@@ -55,7 +55,7 @@
             android:contentDescription="@string/hint_print_preview" />
 
         <TextView
-            android:id="@+id/path"
+            android:id="@+id/file_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/placeholder"

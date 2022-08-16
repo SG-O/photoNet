@@ -16,7 +16,7 @@
  *
  */
 
-package de.sg_o.app.photonet.ui.main;
+package de.sg_o.app.photonet.menu;
 
 import android.content.Context;
 
@@ -28,6 +28,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import de.sg_o.app.photonet.R;
+import de.sg_o.app.photonet.ui.main.DetailsFragment;
+import de.sg_o.app.photonet.ui.main.FilesFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
     int i;

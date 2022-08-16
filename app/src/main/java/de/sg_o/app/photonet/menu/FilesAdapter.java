@@ -18,7 +18,9 @@
 
 package de.sg_o.app.photonet.menu;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -34,33 +36,43 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
 
+import de.sg_o.app.photonet.DetailsActivity;
 import de.sg_o.app.photonet.R;
 import de.sg_o.lib.photoNet.netData.FileListItem;
+import de.sg_o.lib.photoNet.netData.FolderList;
 import de.sg_o.lib.photoNet.photonFile.PhotonFileMeta;
 import de.sg_o.lib.photoNet.photonFile.PhotonFilePreview;
+import de.sg_o.lib.photoNet.printer.Folder;
 import de.sg_o.lib.photoNet.printer.RootFolder;
 
 public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
 
-    private final RootFolder mData;
+    private Folder folder;
+    private Map.Entry<String, FileListItem>[] items;
     private final HashMap<Integer, Bitmap> bitmaps;
     private final LayoutInflater mInflater;
     private final SwipeRefreshLayout swipeRefreshLayout;
+    private final Context context;
 
     private int mExpandedPosition = -1;
     private int previousExpandedPosition = -1;
 
     // data is passed into the constructor
     public FilesAdapter(Context context, RootFolder data, SwipeRefreshLayout swipeRefreshLayout) {
+        this.context = context;
         this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+        this.folder = data;
         this.bitmaps = new HashMap<>();
         this.swipeRefreshLayout = swipeRefreshLayout;
         swipeRefreshLayout.setEnabled(true);
+        swipeRefreshLayout.setRefreshing(true);
         swipeRefreshLayout.setOnRefreshListener(() -> new Refresh().execute());
+        new Refresh().execute();
     }
 
     // inflates the row layout from xml when needed
@@ -74,17 +86,13 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int p) {
-        if (mData == null) return;
-        if (mData.getFolder() == null) return;
-        LinkedList<FileListItem> items = mData.getFolder().getItems();
         if (items == null) return;
         int position = holder.getAdapterPosition();
-        String name = items.get(position).getName();
-        String path = items.get(position).getFullPath();
+        String name = items[position].getValue().getName();
+        long size = items[position].getValue().getSize();
         if (name == null) name = "";
-        if (path == null) path = "";
         holder.entryName.setText(name);
-        holder.path.setText(path);
+        holder.fileSize.setText(formatSize(size));
         final boolean isExpanded = position==mExpandedPosition;
         holder.details.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
@@ -97,16 +105,22 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 
         if (isExpanded) previousExpandedPosition = position;
 
-        if (items.get(position).isFolder()) {
+        if (items[position].getValue().isFolder()) {
             holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_folder_black_48, 0, 0, 0);
         } else {
             holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.printer_3d_48, 0, 0, 0);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if (items.get(position).isFolder()) {
+            FileListItem selected = items[position].getValue();
+            if (selected.isFolder()) {
                 mExpandedPosition = -1;
                 notifyItemChanged(previousExpandedPosition);
+                Folder tmp = selected.getFolder();
+                if (tmp == null) return;
+                folder = tmp;
+                swipeRefreshLayout.setRefreshing(true);
+                new Refresh().execute();
             } else {
                 new LoadPreview().execute(position);
                 mExpandedPosition = isExpanded ? -1 : position;
@@ -116,9 +130,9 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         });
 
         holder.delete.setOnClickListener(v -> {
-            if (!items.get(position).isFolder()) {
+            if (!items[position].getValue().isFolder()) {
                 try {
-                    items.get(position).delete();
+                    items[position].getValue().delete();
                     new Refresh().execute();
                 } catch (UnsupportedEncodingException ignored) {
                 }
@@ -126,11 +140,25 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         });
 
         holder.print.setOnClickListener(v -> {
-            if (!items.get(position).isFolder()) {
+            if (!items[position].getValue().isFolder()) {
                 try {
-                    items.get(position).print();
+                    items[position].getValue().print();
                 } catch (UnsupportedEncodingException ignored) {
                 }
+            }
+        });
+
+        holder.download.setOnClickListener(v -> {
+            FileListItem file = items[position].getValue();
+            if (!file.isFolder()) {
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                String[] split = file.getName().split("\\.");
+                if (split.length < 2) return;
+                intent.setType("model/x." + split[split.length - 1]);
+                intent.putExtra(Intent.EXTRA_TITLE, file.getName());
+                DetailsActivity.toDownload = file;
+                ((Activity) context).startActivityForResult(intent, 1);
             }
         });
     }
@@ -138,17 +166,14 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     // total number of rows
     @Override
     public int getItemCount() {
-        if (mData == null) return 0;
-        if (mData.getFolder() == null) return 0;
-        LinkedList<FileListItem> items = mData.getFolder().getItems();
         if (items == null) return 0;
-        return items.size();
+        return items.length;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView entryName;
         LinearLayout details;
-        TextView path;
+        TextView fileSize;
         ImageView filePreview;
 
         ImageButton delete;
@@ -159,7 +184,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             super(itemView);
             entryName = itemView.findViewById(R.id.entryName);
             details = itemView.findViewById(R.id.fileDetails);
-            path = itemView.findViewById(R.id.path);
+            fileSize = itemView.findViewById(R.id.file_size);
             filePreview = itemView.findViewById(R.id.file_preview);
 
             delete = itemView.findViewById(R.id.file_delete);
@@ -171,11 +196,8 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     // convenience method for getting data at click position
     @SuppressWarnings("unused")
     public FileListItem getItem(int id) {
-        if (mData == null) return null;
-        if (mData.getFolder() == null) return null;
-        LinkedList<FileListItem> items = mData.getFolder().getItems();
         if (items == null) return null;
-        return items.get(id);
+        return items[id].getValue();
     }
 
     private class LoadPreview extends AsyncTask<Integer, Integer, Integer> {
@@ -184,13 +206,10 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 
         protected Integer doInBackground(Integer... entry) {
             this.entry = entry[0];
-            if (mData == null) return 0;
-            if (mData.getFolder() == null) return 0;
-            LinkedList<FileListItem> items = mData.getFolder().getItems();
             if (items == null) return 0;
             try {
-                PhotonFileMeta meta = items.get(this.entry).getMeta();
-                PhotonFilePreview preview =  items.get(this.entry).getPreview(meta.getPreviewHeaderOffset());
+                PhotonFileMeta meta = items[this.entry].getValue().getMeta();
+                PhotonFilePreview preview =  items[this.entry].getValue().getPreview(meta.getPreviewHeaderOffset());
                 Bitmap img = Bitmap.createBitmap(preview.getImage(), preview.getImgWidth(), preview.getImgHeight(), Bitmap.Config.ARGB_8888);
                 bitmaps.put(this.entry, img);
             } catch (Exception ignored) {
@@ -205,13 +224,39 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         }
     }
 
+    public Folder getFolder() {
+        return folder;
+    }
+
+    private String formatSize(long size) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        if (size < 0) size = 0;
+        if (size > 1000000000L) {
+            return df.format((float)size / 1000000000.0f) + " " + "KB";
+        }
+        if (size > 1000000L) {
+            return df.format((float)size / 1000000.0f) + " " + "MB";
+        }
+        if (size > 1000L) {
+            return df.format((float)size / 1000.0f) + " " + "KB";
+        }
+        return size + " " + "B";
+    }
+
     private class Refresh extends AsyncTask<Void, Void, Void> {
         protected Void doInBackground(Void... voids) {
             try {
-                mData.update();
-                while (!mData.isUpToDate()) {
+                folder.update();
+                while (!folder.isUpToDate()) {
+                    Thread.sleep(100);
                 }
-            } catch (UnsupportedEncodingException ignored) {
+                FolderList folderList = folder.getFolderList();
+                if (folderList != null) {
+                    Set<Map.Entry<String, FileListItem>> entrySet = folderList.getItems().entrySet();
+                    items = entrySet.toArray(new Map.Entry[entrySet.size()]);
+                }
+            } catch (UnsupportedEncodingException | InterruptedException ignored) {
             }
             return null;
         }

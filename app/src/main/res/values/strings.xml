@@ -73,4 +73,13 @@
     <string name="hint_download_file">Download file</string>
     <string name="hint_print_file">Print file</string>
     <string name="hint_print_preview">File preview</string>
+    <string name="file_transfer_title">File Transfer</string>
+    <string name="notification_retry">Retry</string>
+    <string name="notification_ignore">Ignore</string>
+    <string name="notification_resume">Resume</string>
+    <string name="notification_pause">Pause</string>
+    <string name="notification_abort">Abort</string>
+    <string name="upload_dialog_selected">\"Selected: \"</string>
+    <string name="hint_upload_filename">Upload file as</string>
+    <string name="hint_upload_file">Upload File</string>
 </resources>

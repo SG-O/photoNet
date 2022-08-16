@@ -16,7 +16,7 @@
  *
  */
 
-package de.sg_o.app.photonet;
+package de.sg_o.app.photonet.ui.main;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -29,67 +29,54 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
+import de.sg_o.app.photonet.MainActivity;
+import de.sg_o.app.photonet.R;
 import de.sg_o.lib.photoNet.printer.Printer;
 
 public class PrinterEditDialogFragment extends DialogFragment {
-    private Printer printer;
+    private final Printer printer;
 
     private EditText printerName;
-    private Button renameButton;
 
     public PrinterEditDialogFragment(Printer printer) {
         super();
         this.printer = printer;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View content = inflater.inflate(R.layout.content_printer_edit, null);
 
-        renameButton = content.findViewById(R.id.edit_rename);
-        renameButton.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                renamePrinter();
-            }
-        });
+        Button renameButton = content.findViewById(R.id.edit_rename);
+        renameButton.setOnClickListener(v -> renamePrinter());
         printerName = content.findViewById(R.id.edit_printerName);
         printerName.setText(printer.getName());
-        printerName.setOnKeyListener(new View.OnKeyListener() {
-            public boolean onKey(View view, int keyCode, KeyEvent keyevent) {
-                if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                    renamePrinter();
-                    return true;
-                }
-                return false;
+        printerName.setOnKeyListener((view, keyCode, keyevent) -> {
+            if ((keyevent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                renamePrinter();
+                return true;
             }
+            return false;
         });
 
         builder.setTitle("Edit Printer");
         builder.setView(content)
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
+                .setNegativeButton("Cancel", (dialog, id) -> {
 
-                    }
                 })
-                .setNeutralButton("DELETE", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        deletePrinter();
-                    }
-                });
+                .setNeutralButton("DELETE", (dialog, id) -> deletePrinter());
         // Create the AlertDialog object and return it
         return builder.create();
     }
 
     private void renamePrinter() {
         String name = printerName.getText().toString();
-        if (name == null) return;
         if (name.length() < 1) return;
         if (name.length() > 16) return;
         printer.setName(name);

@@ -18,8 +18,11 @@
 
 package de.sg_o.app.photonet;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,9 +31,16 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-import de.sg_o.app.photonet.ui.main.SectionsPagerAdapter;
+import java.io.FileNotFoundException;
+import java.io.OutputStream;
+
+import de.sg_o.app.photonet.filetransfer.TransferService;
+import de.sg_o.app.photonet.filetransfer.TransferWorker;
+import de.sg_o.app.photonet.menu.SectionsPagerAdapter;
+import de.sg_o.lib.photoNet.netData.FileListItem;
 
 public class DetailsActivity extends AppCompatActivity {
+    public static FileListItem toDownload = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,5 +64,31 @@ public class DetailsActivity extends AppCompatActivity {
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
+        Uri uri;
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            if (resultData != null) {
+                uri = resultData.getData();
+                writeFileContent(uri);
+            }
+        }
+    }
+
+    private void writeFileContent(Uri uri)
+    {
+        if (toDownload == null) return;
+        FileListItem tmp = toDownload;
+        toDownload = null;
+        try {
+            ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(uri, "w");
+            OutputStream fileOutputStream = new ParcelFileDescriptor.AutoCloseOutputStream(pfd);
+            TransferWorker.addTransfer(tmp.getDownload(fileOutputStream, 2));
+            TransferService.startService(this);
+        } catch (FileNotFoundException ignore) {
+        }
     }
 }

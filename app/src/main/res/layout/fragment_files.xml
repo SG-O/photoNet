@@ -17,17 +17,36 @@
   ~
   -->
 
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:enabled="false">
+    tools:context=".DetailsActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/m_files"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/files_swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_file" />
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_gravity="bottom|end"
+        android:enabled="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/m_files"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/item_file">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/files_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:contentDescription="@string/hint_upload_filename"
+        app:srcCompat="@drawable/ic_baseline_file_upload_24" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

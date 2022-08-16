@@ -40,8 +40,8 @@ android {
         applicationId "de.sg_o.app.photonet"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 1
-        versionName '0.1'
+        versionCode 2
+        versionName '0.2'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled false
@@ -79,7 +79,7 @@ android {
 }
 
 dependencies {
-    implementation 'de.sg-o.lib:photoNet:0.8'
+    implementation 'de.sg-o.lib:photoNet:0.9'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'
