@@ -12,7 +12,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v2
-      - name: set up JDK 11
+      - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
@@ -23,13 +23,13 @@ jobs:
         with:
           gradle-version: 7.3.3
           
-      - name: Install latest build tools
+      - name: Install build tools
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "build-tools;33.0.0" --sdk_root=${ANDROID_SDK_ROOT}
 
       - name: Install NDK
-        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;23.0.7599858" --sdk_root=${ANDROID_SDK_ROOT}
+        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;25.0.8775105" --sdk_root=${ANDROID_SDK_ROOT}
         
-      - name: List files in the repository
+      - name: Initialize gradle
         run: |
           chmod +x /home/runner/work/photoNet/photoNet/gradlew
           gradle wrapper
