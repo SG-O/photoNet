@@ -17,22 +17,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 11
-          cache: 'gradle'
           
-      - name: Checkout Gradle Build Cache
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            !~/.gradle/wrapper/dists/**/gradle*.zip
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: |
-            gradle-${{ runner.os }}-
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        
       - name: List files in the repository
         run: |
           ls /home/runner/work/photoNet/photoNet/
           chmod +x /home/runner/work/photoNet/photoNet/gradlew
+          
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.0.5
         with:
