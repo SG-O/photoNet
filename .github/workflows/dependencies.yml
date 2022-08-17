@@ -31,8 +31,8 @@ jobs:
         
       - name: List files in the repository
         run: |
-          ls /home/runner/work/photoNet/photoNet/
           chmod +x /home/runner/work/photoNet/photoNet/gradlew
+          gradle wrapper
         
       - name: Run unit tests
         run: ./gradlew test --stacktrace
