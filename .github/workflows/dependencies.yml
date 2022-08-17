@@ -32,6 +32,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls /home/runner/work/photoNet/photoNet/
+          chmod +x /home/runner/work/photoNet/photoNet/gradlew
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.0.5
         with:
