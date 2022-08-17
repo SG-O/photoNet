@@ -21,13 +21,19 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: current
+          gradle-version: 7.3.3
           
       - name: Install latest build tools
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "build-tools;33.0.0" --sdk_root=${ANDROID_SDK_ROOT}
 
       - name: Install NDK
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;23.0.7599858" --sdk_root=${ANDROID_SDK_ROOT}
+        
+      - name: Run unit tests
+        run: ./gradlew test --stacktrace
+
+      - name: Build with Gradle
+        run: ./gradlew assembleRelease --stacktrace
         
       - name: List files in the repository
         run: |
