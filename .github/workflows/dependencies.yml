@@ -29,16 +29,16 @@ jobs:
       - name: Install NDK
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;23.0.7599858" --sdk_root=${ANDROID_SDK_ROOT}
         
+      - name: List files in the repository
+        run: |
+          ls /home/runner/work/photoNet/photoNet/
+          chmod +x /home/runner/work/photoNet/photoNet/gradlew
+        
       - name: Run unit tests
         run: ./gradlew test --stacktrace
 
       - name: Build with Gradle
         run: ./gradlew assembleRelease --stacktrace
-        
-      - name: List files in the repository
-        run: |
-          ls /home/runner/work/photoNet/photoNet/
-          chmod +x /home/runner/work/photoNet/photoNet/gradlew
           
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.0.5
