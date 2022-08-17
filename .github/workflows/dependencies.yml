@@ -33,14 +33,6 @@ jobs:
         run: |
           chmod +x /home/runner/work/photoNet/photoNet/gradlew
           gradle wrapper
-        
-      - name: Run unit tests
-        run: ./gradlew test --stacktrace
-
-      - name: Build with Gradle
-        run: |
-          ./gradlew assembleRelease --stacktrace
-          ./gradlew bundleRelease --stacktrace
           
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.0.5
