@@ -11,6 +11,17 @@ jobs:
     permissions: # The Dependency Submission API requires write permission
       contents: write
     steps:
+      - name: Checkout Gradle Build Cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            !~/.gradle/wrapper/dists/**/gradle*.zip
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
+    
       - name: 'Checkout Repository'
         uses: actions/checkout@v3
 
