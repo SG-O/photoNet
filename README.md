@@ -38,9 +38,7 @@ Make sure your printer is switched on and connected to your local network.
 
 In the app tap on the "+" in to lower right corner.
 
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_empty.jpg" height="400" />
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_discovery.jpg" height="400" />
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_manual.jpg" height="400" />
+<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_empty.jpg" height="400" /> <img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_discovery.jpg" height="400" /> <img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_manual.jpg" height="400" />
 
 Wait while the app discovers available printers. Tap on the printer you want to add.
 
@@ -50,15 +48,13 @@ If your printer was not automatically discovered tap on manual and enter your pr
 
 Tap on your printers entry.
 
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_main.jpg" height="400" />
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_details.jpg" height="400" />
+<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_main.jpg" height="400" /> <img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_details.jpg" height="400" />
 
 ### Start print
 
 In your printers details tap on files. Select the file you want to print. 
 
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_files.jpg" height="400" />
-<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_file_details.jpg" height="400" />
+<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_files.jpg" height="400" /> <img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_file_details.jpg" height="400" />
 
 You will now be able to see a few details about the file you have selected. To start the print tap the play button.
 
