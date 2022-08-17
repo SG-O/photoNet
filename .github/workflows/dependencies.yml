@@ -38,7 +38,9 @@ jobs:
         run: ./gradlew test --stacktrace
 
       - name: Build with Gradle
-        run: ./gradlew assembleRelease --stacktrace
+        run: |
+          ./gradlew assembleRelease --stacktrace
+          ./gradlew bundleRelease --stacktrace
           
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.0.5
