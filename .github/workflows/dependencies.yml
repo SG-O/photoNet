@@ -1,4 +1,4 @@
-name: build
+name: dependencies
 on:
   push:
     branches:
