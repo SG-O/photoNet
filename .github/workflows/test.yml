@@ -1,9 +1,7 @@
 name: test
 on:
   pull_request:
-  types: [opened, reopened]
-    branches:
-      - master # run the action on your projects default branch
+    types: [opened, reopened]
 
 jobs:
   build:
