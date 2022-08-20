@@ -36,6 +36,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -85,7 +86,7 @@ public class TransferService extends Service {
         ignoreIntent = PendingIntent.getBroadcast(this, 0, ignore, FLAG_IMMUTABLE);
 
         createNotificationChannel();
-        startForeground(NOTIFICATION_ID, getMyActivityNotification(0.0f, "", false, false));
+        startForeground(NOTIFICATION_ID, getMyActivityNotification(0.0f, "", false, false, 0.0f));
 
         if (executor == null) {
             executor = Executors.newSingleThreadExecutor();
@@ -133,14 +134,14 @@ public class TransferService extends Service {
                 NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
                 if (transfer.isRunning()) {
                     mNotificationManager.notify(NOTIFICATION_ID,
-                            getMyActivityNotification(transfer.getProgress(), transfer.getName(), transfer.isPaused(), transfer.hasFailed()));
+                            getMyActivityNotification(transfer.getProgress(), transfer.getName(), transfer.isPaused(), transfer.hasFailed(), transfer.getTransferSpeed()));
                 } else {
                     if (worker.countPending() > 0) {
                         mNotificationManager.notify(NOTIFICATION_ID,
-                                getMyActivityNotification(0, worker.getNext().getName(), false, false));
+                                getMyActivityNotification(0, worker.getNext().getName(), false, false, 0.0f));
                     } else if (worker.hasFailed()){
                         mNotificationManager.notify(NOTIFICATION_ID,
-                                getMyActivityNotification(worker.getFirstFailed().getProgress(), worker.getFirstFailed().getName(), false, true));
+                                getMyActivityNotification(worker.getFirstFailed().getProgress(), worker.getFirstFailed().getName(), false, true, 0.0f));
                     }
                 }
             }
@@ -148,7 +149,7 @@ public class TransferService extends Service {
         }
     };
 
-    private Notification getMyActivityNotification(float progress, String name, boolean paused, boolean failed){
+    private Notification getMyActivityNotification(float progress, String name, boolean paused, boolean failed, float speed){
         if (progress < 0.0f) progress = 0.0f;
         if (progress > 1.0f) progress = 1.0f;
         Intent notificationIntent = new Intent(this, MainActivity.class);
@@ -158,11 +159,16 @@ public class TransferService extends Service {
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(getString(R.string.file_transfer_title))
-                .setContentText(name)
                 .setLargeIcon(bitmap)
                 .setSmallIcon(R.drawable.ic_note_up)
                 .setContentIntent(pendingIntent)
                 .setProgress(PROGRESS_MAX, Math.round(progress*100), false);
+
+        if (speed > 0.01) {
+            notification.setContentText(name + "\n" + getFormattedTransferSpeed(speed));
+        } else {
+            notification.setContentText(name);
+        }
 
         if (failed) {
             notification.addAction(R.drawable.ic_baseline_sync_24, getString(R.string.notification_retry), retryIntent);
@@ -176,6 +182,19 @@ public class TransferService extends Service {
             notification.addAction(R.drawable.ic_baseline_stop_24, getString(R.string.notification_abort), stopIntent);
         }
         return notification.build();
+    }
+
+    private String getFormattedTransferSpeed(float transferSpeed) {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        if (transferSpeed < 0.0f) transferSpeed = 0.0f;
+        if (transferSpeed > 1000000.0f) {
+            return df.format(transferSpeed / 1000000.0f) + " MB/s";
+        }
+        if (transferSpeed > 1000.0f) {
+            return df.format(transferSpeed / 1000.0f) + " KB/s";
+        }
+        return df.format(transferSpeed) + " B/s";
     }
 
 

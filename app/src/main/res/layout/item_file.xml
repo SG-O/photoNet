@@ -34,7 +34,7 @@
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
         android:text="@string/placeholder"
-        app:drawableLeftCompat="@drawable/printer_3d_48" />
+        app:drawableLeftCompat="@drawable/ic_printer_3d_48" />
 
     <LinearLayout
         android:id="@+id/fileDetails"
@@ -80,7 +80,7 @@
                 android:layout_weight="1"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/hint_delete_file"
-                app:srcCompat="@drawable/outline_delete_forever_black_24"
+                app:srcCompat="@drawable/outline_delete_forever_24"
                 app:tint="#F44336" />
 
             <ImageButton
@@ -91,7 +91,7 @@
                 android:layout_weight="1"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/hint_download_file"
-                app:srcCompat="@drawable/outline_file_download_black_24" />
+                app:srcCompat="@drawable/outline_file_download_24" />
 
             <ImageButton
                 android:id="@+id/file_print"
@@ -100,7 +100,7 @@
                 android:layout_weight="1"
                 android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/hint_print_file"
-                app:srcCompat="@drawable/outline_play_arrow_black_24" />
+                app:srcCompat="@drawable/outline_play_arrow_24" />
 
         </LinearLayout>
 

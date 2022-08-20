@@ -3,19 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.22604166666666667" />
         <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/User/Documents/Git/photoNetApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_baseline_stop_24.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_baseline_sync_24.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_note_up.xml" value="0.201" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.276" />
         <entry key="app/src/main/res/drawable/baseline_broken_image_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/baseline_folder_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/baseline_text_snippet_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_baseline_broken_image_48.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_baseline_file_upload_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_baseline_folder_48.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.309" />
+        <entry key="app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.309" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.276" />
         <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/ic_msla_01.xml" value="0.1905" />
+        <entry key="app/src/main/res/drawable/ic_printer_3d_48.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/outline_broken_image_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/outline_delete_forever_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/outline_file_download_20.xml" value="0.1905" />
@@ -23,13 +33,18 @@
         <entry key="app/src/main/res/drawable/outline_play_arrow_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/outline_refresh_24.xml" value="0.1905" />
         <entry key="app/src/main/res/drawable/side_nav_bar.xml" value="0.1905" />
+        <entry key="app/src/main/res/layout-land/activity_file_preview.xml" value="0.28388200085506626" />
+        <entry key="app/src/main/res/layout-land/content_file_preview.xml" value="0.67" />
         <entry key="app/src/main/res/layout/activity_about.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_file_details.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_file_preview.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_license.xml" value="0.17349726775956284" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_about.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_discover.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/content_file_upload.xml" value="0.2914529914529915" />
+        <entry key="app/src/main/res/layout/content_file_preview.xml" value="0.9" />
+        <entry key="app/src/main/res/layout/content_file_upload.xml" value="0.25" />
         <entry key="app/src/main/res/layout/content_license.xml" value="0.25" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.12152777777777778" />
         <entry key="app/src/main/res/layout/content_printerEdit.xml" value="0.15915300546448088" />
@@ -41,9 +56,10 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.12152777777777778" />
         <entry key="app/src/main/res/layout/item_dependency.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_discover.xml" value="0.23680555555555555" />
-        <entry key="app/src/main/res/layout/item_file.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_file.xml" value="0.8839506172839506" />
         <entry key="app/src/main/res/layout/item_printer.xml" value="0.12152777777777778" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2877637130801688" />
+        <entry key="app/src/main/res/menu/file_preview.xml" value="0.4375" />
         <entry key="app/src/main/res/menu/main.xml" value="0.27870370370370373" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1905" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1905" />

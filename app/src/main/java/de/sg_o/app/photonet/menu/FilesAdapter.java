@@ -100,15 +100,15 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         if (bitmaps.containsKey(position)) {
             holder.filePreview.setImageBitmap(bitmaps.get(position));
         } else {
-            holder.filePreview.setImageResource(R.drawable.baseline_broken_image_black_48);
+            holder.filePreview.setImageResource(R.drawable.ic_baseline_broken_image_48);
         }
 
         if (isExpanded) previousExpandedPosition = position;
 
         if (items[position].getValue().isFolder()) {
-            holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.baseline_folder_black_48, 0, 0, 0);
+            holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_baseline_folder_48, 0, 0, 0);
         } else {
-            holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.printer_3d_48, 0, 0, 0);
+            holder.entryName.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_printer_3d_48, 0, 0, 0);
         }
 
         holder.itemView.setOnClickListener(v -> {
@@ -233,15 +233,15 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         df.setMaximumFractionDigits(2);
         if (size < 0) size = 0;
         if (size > 1000000000L) {
-            return df.format((float)size / 1000000000.0f) + " " + "KB";
+            return df.format((float)size / 1000000000.0f) + " GB";
         }
         if (size > 1000000L) {
-            return df.format((float)size / 1000000.0f) + " " + "MB";
+            return df.format((float)size / 1000000.0f) + " MB";
         }
         if (size > 1000L) {
-            return df.format((float)size / 1000.0f) + " " + "KB";
+            return df.format((float)size / 1000.0f) + " KB";
         }
-        return size + " " + "B";
+        return size + " B";
     }
 
     private class Refresh extends AsyncTask<Void, Void, Void> {

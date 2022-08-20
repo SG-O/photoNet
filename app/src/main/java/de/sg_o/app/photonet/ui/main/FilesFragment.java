@@ -31,12 +31,12 @@ import android.view.ViewGroup;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import de.sg_o.app.photonet.FilePreviewActivity;
 import de.sg_o.app.photonet.MainActivity;
 import de.sg_o.app.photonet.R;
 import de.sg_o.app.photonet.menu.FilesAdapter;
@@ -44,6 +44,9 @@ import de.sg_o.lib.photoNet.printer.Folder;
 import de.sg_o.lib.photoNet.printer.RootFolder;
 
 public class FilesFragment extends Fragment{
+    public static final String EXTRA_FILE_URI = "de.sg_o.app.FileUri";
+    public static final String EXTRA_FILE_FOLDER = "de.sg_o.app.Folder";
+
     RootFolder rFolder;
     FilesAdapter adapter;
 
@@ -77,9 +80,10 @@ public class FilesFragment extends Fragment{
                         if (result.getData() != null) {
                             Uri uri = result.getData().getData();
                             if (getActivity() == null) return;
-                            FragmentManager fm = getActivity().getSupportFragmentManager();
-                            FileUploadDialogFragment fileUploadDialogFragment = new FileUploadDialogFragment(uri, folder);
-                            fileUploadDialogFragment.show(fm, "upload");
+                            Intent intent = new Intent(getActivity(), FilePreviewActivity.class);
+                            intent.putExtra(EXTRA_FILE_URI, uri);
+                            intent.putExtra(EXTRA_FILE_FOLDER, folder);
+                            startActivity(intent);
                         }
                     }
                 });

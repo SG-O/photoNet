@@ -96,7 +96,7 @@ android {
 }
 
 dependencies {
-    implementation 'de.sg-o.lib:photoNet:0.10'
+    implementation 'de.sg-o.lib:photoNet:0.11'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'androidx.appcompat:appcompat:1.5.0'
     implementation 'com.google.android.material:material:1.6.1'

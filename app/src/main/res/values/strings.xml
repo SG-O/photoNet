@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~
   ~   Copyright (C) 2022 Joerg Bayer (SG-O)
   ~
@@ -82,4 +81,9 @@
     <string name="upload_dialog_selected">\"Selected: \"</string>
     <string name="hint_upload_filename">Upload file as</string>
     <string name="hint_upload_file">Upload File</string>
+    <string name="preview_next_layer">Next Layer</string>
+    <string name="preview_prev_layer">Previous Layer</string>
+    <string name="preview_image_preview">File preview</string>
+    <string name="preview_image_layer">Layer image</string>
+    <string name="title_activity_file_preview">File Preview</string>
 </resources>
