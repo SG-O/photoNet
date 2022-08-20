@@ -1,8 +1,9 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/SG-O/photoNet?label=Download)](https://github.com/SG-O/photoNet/releases/latest)
 [![GitHub](https://img.shields.io/github/license/SG-O/photoNet?color=blue)](https://github.com/SG-O/photoNet/blob/master/LICENSE)
-
 # photoNet
-
+<p align="center">
+    <img src="https://raw.githubusercontent.com/SG-O/photoNet/master/doc/appIcon.svg" height="196" />
+</p>
 Android app for controlling Chitu based MSLA printers.
 
 This software was developed and tested with the original Anycubic Photon. 
