@@ -29,6 +29,15 @@
         "code",
         "userTesting"
       ]
+    },
+    {
+      "login": "",
+      "name": "Brandon Stephenson",
+      "avatar_url": "https://github.com/identicons/default.png",
+      "profile": "",
+      "contributions": [
+        "userTesting"
+      ]
     }
   ]
 }
