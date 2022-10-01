@@ -27,7 +27,8 @@
         "review",
         "projectManagement",
         "test",
-        "code"
+        "code",
+        "userTesting"
       ]
     }
   ]
