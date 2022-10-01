@@ -37,7 +37,7 @@ I am not responsible for ANY damages resulting from you using this software.
 
 ## Requirements
 
-* Chitu or Anycubic based MSLA printer with connected to your network via Ethernet or WIFI
+* Chitu or Anycubic based MSLA printer with a connection to your local network via Ethernet or WIFI
 * An Android based device running at least Android 7.0 Nougat
 * A storage device connected to your printer
 
