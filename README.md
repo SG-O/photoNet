@@ -103,18 +103,15 @@ If you want a feature to be added to this app [feel free to create an issue](htt
 <table>
   <tbody>
     <tr>
-      <td align="center"><a href="https://github.com/SG-O"><img src="https://avatars.githubusercontent.com/u/1754351?v=4" width="100px;" alt=""/><br /><sub><b>SG-O</b></sub></a></td>
+      <td align="center"><a href="https://github.com/SG-O"><img src="https://avatars.githubusercontent.com/u/1754351?v=4" width="100px;" alt=""/><br /><sub><b>SG-O</b></sub></a><br />
+      <a href="https://github.com/SG-O/photoNet/commits?author=SG-O" title="Code">💻</a>
+      <a href="#design-SG-O" title="Design">🎨</a>
+       <a href="https://github.com/SG-O/photoNet/pulls?q=is%3Apr+reviewed-by%3SG-O" title="Reviewed Pull Requests">👀</a>
+      <a href="#userTesting-SG-O" title="User Testing">📓</a></td>
+      <td align="center"><img src="https://github.com/identicons/default.png" width="100px;" alt=""/><br /><sub><b>Brandon Stephenson</b></sub><br />
+      <a href="#userTesting" title="User Testing">📓</a></td>
     </tr>
   </tbody>
-  <tfoot>
-    <tr>
-      <td align="center" size="13px" colspan="7">
-        <img src="https://raw.githubusercontent.com/all-contributors/all-contributors-cli/1b8533af435da9854653492b1327a23a4dbd0a10/assets/logo-small.svg">
-          <a href="https://all-contributors.js.org/docs/en/bot/usage">Add your contributions</a>
-        </img>
-      </td>
-    </tr>
-  </tfoot>
 </table>
 
 <!-- markdownlint-restore -->
