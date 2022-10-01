@@ -1,7 +1,9 @@
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/SG-O/photoNet?label=Download)](https://github.com/SG-O/photoNet/releases/latest)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
-<!-- ALL-CONTRIBUTORS-BADGE:END --> 
+[badge-all-contributors]: https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/SG-O/photoNet?label=Download)](https://github.com/SG-O/photoNet/releases/latest)
+[![All Contributors][badge-all-contributors]](#contributors)
 [![GitHub](https://img.shields.io/github/license/SG-O/photoNet?color=blue)](https://github.com/SG-O/photoNet/blob/master/LICENSE)
 # photoNet
 <p align="center">
