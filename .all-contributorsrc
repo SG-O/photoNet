@@ -3,16 +3,32 @@
   "projectOwner": "SG-O",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "files": ["README.md"],
+  "files": [
+    "README.md"
+  ],
   "imageSize": 100,
   "commit": false,
   "contributorsPerLine": 7,
   "contributorsSortAlphabetically": false,
   "badgeTemplate": "[![All Contributors](https://img.shields.io/badge/all_contributors-<%= contributors.length %>-orange.svg?style=flat-square)](#contributors)",
   "contributorTemplate": "<a href=\"<%= contributor.profile %>\"><img src=\"<%= contributor.avatar_url %>\" width=\"<%= options.imageSize %>px;\" alt=\"\"/><br /><sub><b><%= contributor.name %></b></sub></a>",
-  "types": {
-  },
+  "types": {},
   "linkToUsage": true,
   "skipCi": true,
-  "contributors": []
+  "contributors": [
+    {
+      "login": "SG-O",
+      "name": "SG-O",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1754351?v=4",
+      "profile": "https://github.com/SG-O",
+      "contributions": [
+        "design",
+        "ideas",
+        "review",
+        "projectManagement",
+        "test",
+        "code"
+      ]
+    }
+  ]
 }
