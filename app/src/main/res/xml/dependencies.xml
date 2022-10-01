@@ -35,8 +35,8 @@
         value="https://junit.org/junit4/"/>
 
     <dependency
-        name="Photon 3d Printer Assembly"
-        license="Mike Ecke"
-        value="https://grabcad.com/library/photon-3d-printer-assembly-1"/>
+        name="LibVLC-Android"
+        license="GNU Lesser General Public License, version 2.1"
+        value="https://code.videolan.org/videolan/vlc-android/"/>
 
 </dependencies>

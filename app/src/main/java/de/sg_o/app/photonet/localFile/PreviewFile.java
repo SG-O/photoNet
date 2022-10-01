@@ -27,10 +27,10 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import de.sg_o.lib.photoNet.photonFile.PhotonFile;
-import de.sg_o.lib.photoNet.photonFile.PhotonFileMeta;
-import de.sg_o.lib.photoNet.photonFile.PhotonFilePreview;
-import de.sg_o.lib.photoNet.photonFile.PhotonLayer;
+import de.sg_o.lib.photoNet.printFile.PrintFile;
+import de.sg_o.lib.photoNet.printFile.PrintFileMeta;
+import de.sg_o.lib.photoNet.printFile.PrintFilePreview;
+import de.sg_o.lib.photoNet.printFile.PrintLayer;
 
 public class PreviewFile implements Runnable {
     public static final String PREVIEW_BROADCAST = "de.sg_o.app.photonet.preview.preview";
@@ -38,23 +38,23 @@ public class PreviewFile implements Runnable {
     public static final String META_BROADCAST = "de.sg_o.app.photonet.preview.layer";
 
     private final Context context;
-    private PhotonFile file;
-    ExecutorService updater = Executors.newSingleThreadExecutor();
+    private PrintFile file;
+    private final ExecutorService updater = Executors.newSingleThreadExecutor();
 
     private Bitmap previewImg = null;
     private Bitmap layerImg = null;
-    private PhotonFileMeta meta = null;
+    private PrintFileMeta meta = null;
 
     private int selectedLayer = 0;
 
-    public PreviewFile(Context context, PhotonFile file) {
+    public PreviewFile(Context context, PrintFile file) {
         this.context = context;
         this.file = file;
     }
 
     public void selectLayer(int layer) {
         if (file == null) return;
-        PhotonFileMeta meta = file.getMeta();
+        PrintFileMeta meta = file.getMeta();
         if (meta == null) return;
         if (layer >= meta.getNrLayers()) return;
         this.selectedLayer = layer;
@@ -74,7 +74,7 @@ public class PreviewFile implements Runnable {
         }
         Intent intent;
         if ((file.getPreview() != null) && (previewImg == null)) {
-            PhotonFilePreview preview = file.getPreview();
+            PrintFilePreview preview = file.getPreview();
             if (preview != null) {
                 previewImg = Bitmap.createBitmap(preview.getImage(), preview.getImgWidth(), preview.getImgHeight(), Bitmap.Config.ARGB_8888);
                 intent = new Intent();
@@ -87,7 +87,7 @@ public class PreviewFile implements Runnable {
             intent.setAction(META_BROADCAST);
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-            PhotonLayer pl = file.getLayers().get(selectedLayer);
+            PrintLayer pl = file.getLayers().get(selectedLayer);
             if (pl != null) pl.setBackgroundColor(0xFF000000);
             int[] layerImage = file.getLayerImage(selectedLayer);
             if (layerImage != null) {
@@ -107,7 +107,7 @@ public class PreviewFile implements Runnable {
         return layerImg;
     }
 
-    public PhotonFileMeta getMeta() {
+    public PrintFileMeta getMeta() {
         return meta;
     }
 

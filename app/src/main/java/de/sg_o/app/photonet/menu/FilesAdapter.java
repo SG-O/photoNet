@@ -45,10 +45,9 @@ import de.sg_o.app.photonet.DetailsActivity;
 import de.sg_o.app.photonet.R;
 import de.sg_o.lib.photoNet.netData.FileListItem;
 import de.sg_o.lib.photoNet.netData.FolderList;
-import de.sg_o.lib.photoNet.photonFile.PhotonFileMeta;
-import de.sg_o.lib.photoNet.photonFile.PhotonFilePreview;
+import de.sg_o.lib.photoNet.printFile.PrintFileMeta;
+import de.sg_o.lib.photoNet.printFile.PrintFilePreview;
 import de.sg_o.lib.photoNet.printer.Folder;
-import de.sg_o.lib.photoNet.printer.RootFolder;
 
 public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> {
 
@@ -63,7 +62,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     private int previousExpandedPosition = -1;
 
     // data is passed into the constructor
-    public FilesAdapter(Context context, RootFolder data, SwipeRefreshLayout swipeRefreshLayout) {
+    public FilesAdapter(Context context, Folder data, SwipeRefreshLayout swipeRefreshLayout) {
         this.context = context;
         this.mInflater = LayoutInflater.from(context);
         this.folder = data;
@@ -90,12 +89,14 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
         int position = holder.getAdapterPosition();
         String name = items[position].getValue().getName();
         long size = items[position].getValue().getSize();
+        boolean supportsDownload = items[position].getValue().supportsDownload();
         if (name == null) name = "";
         holder.entryName.setText(name);
         holder.fileSize.setText(formatSize(size));
         final boolean isExpanded = position==mExpandedPosition;
         holder.details.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
+        holder.download.setVisibility(supportsDownload?View.VISIBLE:View.GONE);
 
         if (bitmaps.containsKey(position)) {
             holder.filePreview.setImageBitmap(bitmaps.get(position));
@@ -131,20 +132,14 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
 
         holder.delete.setOnClickListener(v -> {
             if (!items[position].getValue().isFolder()) {
-                try {
-                    items[position].getValue().delete();
-                    new Refresh().execute();
-                } catch (UnsupportedEncodingException ignored) {
-                }
+                items[position].getValue().delete();
+                new Refresh().execute();
             }
         });
 
         holder.print.setOnClickListener(v -> {
             if (!items[position].getValue().isFolder()) {
-                try {
-                    items[position].getValue().print();
-                } catch (UnsupportedEncodingException ignored) {
-                }
+                items[position].getValue().print();
             }
         });
 
@@ -171,14 +166,14 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView entryName;
-        LinearLayout details;
-        TextView fileSize;
-        ImageView filePreview;
+        private final TextView entryName;
+        private final LinearLayout details;
+        private final TextView fileSize;
+        private final ImageView filePreview;
 
-        ImageButton delete;
-        ImageButton download;
-        ImageButton print;
+        private final ImageButton delete;
+        private final ImageButton download;
+        private final ImageButton print;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -208,8 +203,8 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.ViewHolder> 
             this.entry = entry[0];
             if (items == null) return 0;
             try {
-                PhotonFileMeta meta = items[this.entry].getValue().getMeta();
-                PhotonFilePreview preview =  items[this.entry].getValue().getPreview(meta.getPreviewHeaderOffset());
+                PrintFileMeta meta = items[this.entry].getValue().getMeta();
+                PrintFilePreview preview =  items[this.entry].getValue().getPreview(meta.getPreviewHeaderOffset());
                 Bitmap img = Bitmap.createBitmap(preview.getImage(), preview.getImgWidth(), preview.getImgHeight(), Bitmap.Config.ARGB_8888);
                 bitmaps.put(this.entry, img);
             } catch (Exception ignored) {

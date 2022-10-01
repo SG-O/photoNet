@@ -98,9 +98,9 @@ public class DependencyAdapter extends RecyclerView.Adapter<DependencyAdapter.Vi
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name;
-        TextView license;
-        TextView web;
+        private final TextView name;
+        private final TextView license;
+        private final TextView web;
 
         ViewHolder(View itemView) {
             super(itemView);

@@ -29,17 +29,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
 import de.sg_o.app.photonet.MainActivity;
 import de.sg_o.app.photonet.R;
+import de.sg_o.lib.photoNet.networkIO.NetIO;
 import de.sg_o.lib.photoNet.printer.Discover;
 
 public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.ViewHolder> {
 
-    private final Discover mDiscover;
-    private Map.Entry<String, String>[] mEntries;
+    private final LinkedList<Discover> mDiscover;
+    private Map.Entry<String, Map.Entry<NetIO.DeviceType, String>>[] mEntries;
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private final SwipeRefreshLayout swipeRefreshLayout;
@@ -67,7 +69,7 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (mEntries == null) return;
         if (position >= mEntries.length) return;
-        String name = mEntries[position].getValue();
+        String name = mEntries[position].getValue().getValue();
         String ip = mEntries[position].getKey();
         holder.name.setText(name);
         holder.ip.setText(ip);
@@ -83,8 +85,8 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.View
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView name;
-        TextView ip;
+        private final TextView name;
+        private final TextView ip;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -100,9 +102,9 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.View
     }
 
     // convenience method for getting data at click position
-    public String getItem(int id) {
+    public Map.Entry<String, Map.Entry<NetIO.DeviceType, String>> getItem(int id) {
         if (id >= mEntries.length) return null;
-        return mEntries[id].getKey();
+        return mEntries[id];
     }
 
     // allows clicks events to be caught
@@ -119,10 +121,17 @@ public class DiscoveryAdapter extends RecyclerView.Adapter<DiscoveryAdapter.View
         private int entry;
 
         protected Void doInBackground(Void... voids) {
-            mDiscover.update();
-            while (mDiscover.isRunning()) {
+            for(Discover d : mDiscover) {
+                d.update();
             }
-            Set<Map.Entry<String, String>> entrySet = MainActivity.ENVIRONMENT.notConnected().entrySet();
+            boolean running = true;
+            while (running) {
+                running = false;
+                for(Discover d : mDiscover) {
+                    if (d.isRunning()) running = true;
+                }
+            }
+            Set<Map.Entry<String, Map.Entry<NetIO.DeviceType, String>>> entrySet = MainActivity.ENVIRONMENT.notConnected().entrySet();
             mEntries = entrySet.toArray(new Map.Entry[entrySet.size()]);
             return null;
         }

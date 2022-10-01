@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~
+  ~   Copyright (C) 2022 Joerg Bayer (SG-O)
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+
+<resources>
+    <declare-styleable name="PrinterStatus">
+        <attr name="status_display_color" format="color" />
+        <attr name="status_mask_color" format="color" />
+        <attr name="status_model_color" format="color" />
+        <attr name="status_model_stroke" format="color" />
+        <attr name="status_printer_body" format="color" />
+        <attr name="status_printer_stroke" format="color" />
+        <attr name="status_plate_movement" format="float" />
+    </declare-styleable>
+
+    <style name="Theme.PhotoNet.PrinterStatus.Offline" parent="Theme.PhotoNet">
+        <item name="status_display_color">#000000</item>
+        <item name="status_mask_color">#000000</item>
+        <item name="status_model_color">#00000000</item>
+        <item name="status_model_stroke">#00000000</item>
+        <item name="status_printer_body">@color/image_disabled</item>
+        <item name="status_printer_stroke">@color/image_disabled</item>
+    </style>
+
+    <style name="Theme.PhotoNet.PrinterStatus.Idle"  parent="Theme.PhotoNet.PrinterStatus.Offline">
+        <item name="status_display_color">#aaccffff</item>
+        <item name="status_mask_color">#000000</item>
+        <item name="status_model_color">#00000000</item>
+        <item name="status_model_stroke">#00000000</item>
+        <item name="status_printer_body">@color/image_gray</item>
+        <item name="status_printer_stroke">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Theme.PhotoNet.PrinterStatus.Printing"  parent="Theme.PhotoNet.PrinterStatus.Idle">
+        <item name="status_mask_color">#212178</item>
+        <item name="status_model_color">#138147</item>
+        <item name="status_model_stroke">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="Theme.PhotoNet.PrinterStatus.Finished"  parent="Theme.PhotoNet.PrinterStatus.Idle">
+        <item name="status_model_color">#138147</item>
+        <item name="status_model_stroke">?android:attr/textColorPrimary</item>
+    </style>
+</resources>

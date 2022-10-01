@@ -23,32 +23,52 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.io.FileNotFoundException;
 import java.io.OutputStream;
 
-import de.sg_o.app.photonet.filetransfer.TransferService;
-import de.sg_o.app.photonet.filetransfer.TransferWorker;
+import de.sg_o.app.photonet.fileTransfer.TransferService;
+import de.sg_o.app.photonet.fileTransfer.TransferWorker;
 import de.sg_o.app.photonet.menu.SectionsPagerAdapter;
 import de.sg_o.lib.photoNet.netData.FileListItem;
 
 public class DetailsActivity extends AppCompatActivity {
+    @StringRes
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3};
+
+    public static final String PRINTER_ID = "printer_id";
+    private static int lastUsed = 0;
+
     public static FileListItem toDownload = null;
+    private int printerID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        int i = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, 0);
+        printerID = intent.getIntExtra(MainActivity.EXTRA_MESSAGE, -1);
 
+        if (printerID < 0) {
+            if (savedInstanceState != null) {
+                printerID = savedInstanceState.getInt("Printer_ID", -1);
+            }
+            if (printerID < 0) printerID = lastUsed;
+        }
+        lastUsed = printerID;
         setContentView(R.layout.activity_details);
         Toolbar toolbar = findViewById(R.id.details_toolbar);
         setSupportActionBar(toolbar);
@@ -57,13 +77,34 @@ public class DetailsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        sectionsPagerAdapter.setI(i);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this);
+        sectionsPagerAdapter.setI(printerID);
+        ViewPager2 viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabs, viewPager,
+                (tab, position) -> tab.setText(TAB_TITLES[position])
+        ).attach();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.details, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.details_menu_settings) {
+            Intent intent = new Intent(this, PrinterSettingsActivity.class);
+            intent.putExtra(PRINTER_ID, printerID);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -90,5 +131,11 @@ public class DetailsActivity extends AppCompatActivity {
             TransferService.startService(this);
         } catch (FileNotFoundException ignore) {
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Printer_ID", printerID);
     }
 }

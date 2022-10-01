@@ -58,15 +58,28 @@
         android:paddingRight="8dp"
         android:paddingBottom="8dp">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/d_description_type"
+            android:maxLines="3" />
+
+        <Spinner
+            android:id="@+id/d_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:contentDescription="@string/d_hint_printer_type" />
+
         <EditText
             android:id="@+id/d_ip_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Your printers IP address"
+            android:hint="@string/d_hind_ip_address"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:textColorHint="#78909C" />
+            android:textColorHint="#78909C"
+            android:importantForAutofill="no" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +96,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add" />
+                android:text="@string/d_button_add" />
         </LinearLayout>
 
     </LinearLayout>

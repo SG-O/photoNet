@@ -41,13 +41,12 @@ import de.sg_o.app.photonet.MainActivity;
 import de.sg_o.app.photonet.R;
 import de.sg_o.app.photonet.menu.FilesAdapter;
 import de.sg_o.lib.photoNet.printer.Folder;
-import de.sg_o.lib.photoNet.printer.RootFolder;
 
 public class FilesFragment extends Fragment{
     public static final String EXTRA_FILE_URI = "de.sg_o.app.FileUri";
     public static final String EXTRA_FILE_FOLDER = "de.sg_o.app.Folder";
 
-    RootFolder rFolder;
+    Folder rFolder;
     FilesAdapter adapter;
 
     ActivityResultLauncher<Intent> uploadResultLauncher;
@@ -96,7 +95,10 @@ public class FilesFragment extends Fragment{
         RecyclerView recyclerView = v.findViewById(R.id.m_files);
         recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(context));
         adapter = new FilesAdapter(context, rFolder, v.findViewById(R.id.files_swipeRefreshLayout));
+        boolean supportsUpload = false;
+        if (rFolder != null) supportsUpload = rFolder.supportsUpload();
         FloatingActionButton fab = v.findViewById(R.id.files_upload);
+        fab.setVisibility(supportsUpload?View.VISIBLE:View.GONE);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);

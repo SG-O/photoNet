@@ -18,29 +18,20 @@
 
 package de.sg_o.app.photonet.menu;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import de.sg_o.app.photonet.R;
 import de.sg_o.app.photonet.ui.main.DetailsFragment;
 import de.sg_o.app.photonet.ui.main.FilesFragment;
+import de.sg_o.app.photonet.ui.main.ManualControlFragment;
 
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class SectionsPagerAdapter extends FragmentStateAdapter {
     int i;
 
-    @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2};
-    private final Context mContext;
-
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
-        super(fm);
-        mContext = context;
+    public SectionsPagerAdapter(FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
     public void setI(int i) {
@@ -49,23 +40,20 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         DetailsFragment details = DetailsFragment.newInstance(i);
         if (position == 1) {
             return FilesFragment.newInstance(i);
         }
+        if (position == 2) {
+            return ManualControlFragment.newInstance(i);
+        }
         return details;
     }
 
-    @Nullable
     @Override
-    public CharSequence getPageTitle(int position) {
-        return mContext.getResources().getString(TAB_TITLES[position]);
-    }
-
-    @Override
-    public int getCount() {
-        // Show 2 total pages.
-        return 2;
+    public int getItemCount() {
+        // Show 3 total pages.
+        return 3;
     }
 }

@@ -26,9 +26,11 @@ import android.text.InputFilter;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -36,12 +38,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import de.sg_o.app.photonet.MainActivity;
 import de.sg_o.app.photonet.R;
 import de.sg_o.app.photonet.menu.DiscoveryAdapter;
+import de.sg_o.lib.photoNet.networkIO.NetIO;
 
 public class DiscoveryDialogFragment extends DialogFragment implements DiscoveryAdapter.ItemClickListener{
     private static final String IPV4_REGEX =
@@ -59,6 +63,7 @@ public class DiscoveryDialogFragment extends DialogFragment implements Discovery
     LinearLayout manual;
     EditText ipText;
     Button manualAdd;
+    Spinner type;
 
     @NonNull
     @Override
@@ -80,6 +85,12 @@ public class DiscoveryDialogFragment extends DialogFragment implements Discovery
             }
             return false;
         });
+
+        type = content.findViewById(R.id.d_type_spinner);
+        ArrayAdapter<CharSequence> typeAdapter =
+                ArrayAdapter.createFromResource(getContext(), R.array.printer_types, android.R.layout.simple_spinner_item);
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        type.setAdapter(typeAdapter);
 
         manual.setVisibility(View.INVISIBLE);
 
@@ -153,7 +164,19 @@ public class DiscoveryDialogFragment extends DialogFragment implements Discovery
 
     private void manualAdd() {
         if (verifyIP()) {
-            MainActivity.ENVIRONMENT.connect(ipText.getText().toString());
+            NetIO.DeviceType deviceType;
+            switch (type.getSelectedItemPosition()) {
+                case 0:
+                    deviceType = NetIO.DeviceType.CBD;
+                    break;
+                case 1:
+                    deviceType = NetIO.DeviceType.ACT;
+                    break;
+                default:
+                    deviceType = NetIO.DeviceType.UNKNOWN;
+                    break;
+            }
+            MainActivity.ENVIRONMENT.connect(ipText.getText().toString(), deviceType);
             SharedPreferences.Editor editor = MainActivity.PREFS.edit();
             editor.putString("connected", MainActivity.ENVIRONMENT.save());
             editor.apply();
@@ -163,13 +186,17 @@ public class DiscoveryDialogFragment extends DialogFragment implements Discovery
     }
 
     public void onItemClick(View view, int p) {
-        String ip = adapter.getItem(p);
-        if (ip != null) {
-            MainActivity.ENVIRONMENT.connect(ip);
-            SharedPreferences.Editor editor = MainActivity.PREFS.edit();
-            editor.putString("connected", MainActivity.ENVIRONMENT.save());
-            editor.apply();
-            MainActivity.ADAPTER.notifyDataSetChanged();
+        Map.Entry<String, Map.Entry<NetIO.DeviceType, String>> device = adapter.getItem(p);
+        if (device != null) {
+            String ip = device.getKey();
+            NetIO.DeviceType deviceType = device.getValue().getKey();
+            if (ip != null && deviceType != null) {
+                MainActivity.ENVIRONMENT.connect(ip, deviceType);
+                SharedPreferences.Editor editor = MainActivity.PREFS.edit();
+                editor.putString("connected", MainActivity.ENVIRONMENT.save());
+                editor.apply();
+                MainActivity.ADAPTER.notifyDataSetChanged();
+            }
         }
         this.dismiss();
     }

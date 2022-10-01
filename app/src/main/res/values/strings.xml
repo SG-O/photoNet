@@ -86,4 +86,23 @@
     <string name="preview_image_preview">File preview</string>
     <string name="preview_image_layer">Layer image</string>
     <string name="title_activity_file_preview">File Preview</string>
+    <string name="d_hint_printer_type">Printer type</string>
+    <string name="d_hind_ip_address">Your printers IP address</string>
+    <string name="d_button_add">Add</string>
+    <string name="d_description_type">Printer communication protocol</string>
+    <string name="manual_hint_up">Move build plate up</string>
+    <string name="manual_hint_down">Move build plate down</string>
+    <string name="manual_hint_stop">Stop</string>
+    <string name="manual_hint_home">Go to home position</string>
+    <string name="manual_z_zero">Set Z = 0</string>
+    <string name="manual_unavailable">Unavailable at the moment</string>
+    <string name="tab_text_3">Manual</string>
+
+    <string name="details_hint_pause_resume">Pause or resume</string>
+    <string name="details_hint_stop">Stop print</string>
+    <string name="title_activity_printer_settings">Printer Settings</string>
+    <string name="printer_settings_cam_bool_webcam">Use Webcam</string>
+    <string name="printer_settings_cam_string_url">Video Stream Url</string>
+    <string name="printer_settings_cam_verify_description">Verify connection</string>
+    <string name="printer_settings_cam_verify_button">Verify</string>
 </resources>

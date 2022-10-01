@@ -19,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhotoNet">
         <activity
+            android:name=".PrinterSettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_printer_settings"
+            android:parentActivityName=".DetailsActivity"
+            android:theme="@style/Theme.PhotoNet.NoActionBar" />
+        <activity
             android:name=".LicenseActivity"
             android:exported="false"
             android:label="@string/title_activity_license"
@@ -58,12 +64,12 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".filetransfer.TransferService" />
+        <service android:name=".fileTransfer.TransferService" />
 
         <receiver
-            android:name=".filetransfer.TransferNotificationActionReceiver"
+            android:name=".fileTransfer.TransferNotificationActionReceiver"
             android:enabled="true"
-            android:exported="true"></receiver>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -20,7 +20,7 @@ package de.sg_o.app.photonet.ui.main;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -38,6 +38,7 @@ import de.sg_o.lib.photoNet.printer.Printer;
 
 public class PrinterEditDialogFragment extends DialogFragment {
     private final Printer printer;
+    private SharedPreferences prefs;
 
     private EditText printerName;
 
@@ -65,6 +66,11 @@ public class PrinterEditDialogFragment extends DialogFragment {
             return false;
         });
 
+        Context context = getContext();
+        if (context != null) {
+            prefs = context.getSharedPreferences("printer_settings_" + printer.getIp(), Context.MODE_PRIVATE);
+        }
+
         builder.setTitle("Edit Printer");
         builder.setView(content)
                 .setNegativeButton("Cancel", (dialog, id) -> {
@@ -89,6 +95,9 @@ public class PrinterEditDialogFragment extends DialogFragment {
         SharedPreferences.Editor editor = MainActivity.PREFS.edit();
         editor.putString("connected", MainActivity.ENVIRONMENT.save());
         editor.apply();
+        if (prefs != null) {
+            prefs.edit().clear().apply();
+        }
         MainActivity.ADAPTER.notifyDataSetChanged();
     }
 }

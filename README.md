@@ -1,13 +1,18 @@
 [![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/SG-O/photoNet?label=Download)](https://github.com/SG-O/photoNet/releases/latest)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:END --> 
 [![GitHub](https://img.shields.io/github/license/SG-O/photoNet?color=blue)](https://github.com/SG-O/photoNet/blob/master/LICENSE)
 # photoNet
 <p align="center">
     <img src="https://raw.githubusercontent.com/SG-O/photoNet/master/doc/appIcon.svg" height="196" />
 </p>
-Android app for controlling Chitu based MSLA printers.
+Android app for controlling MSLA printers.
+At the moment it supports the Chitu-Protocol and the Anycubic - Protocol (Mono SE, Mono X, Photon X).
 
-This software was developed and tested with the original Anycubic Photon. 
-Newer Photon printers (including M3, Mono and Ultra) will not work at the moment.
+This software was developed and tested with the original Anycubic Photon and Photon Mono SE. 
+
+Newer Photon printers (including M3) will not work at the moment.
 
 IMPORTANT NOTE!
 
@@ -20,14 +25,18 @@ I am not responsible for ANY damages resulting from you using this software.
 ## Features
 
 * Manage multiple printers from a single app
+* Automatic printer discovery (may not work with VPNs)
 * Monitor the status of your printers
 * Start printing files available on the storage device attached to your printer
-* Upload files to your printer (these have to be pre sliced)
+* Manual movement directly from the app
+* Upload files to your printer (these have to be pre sliced, only available on Chitu based printers)
 * Manage (list, delete, download) files stored on the storage device attached to your printer
+* Monitor your print progress through an optional IP camera (Experimental!)
+* 
 
 ## Requirements
 
-* Chitu based MSLA printer with connected to your network via Ethernet or WIFI
+* Chitu or Anycubic based MSLA printer with connected to your network via Ethernet or WIFI
 * An Android based device running at least Android 7.0 Nougat
 * A storage device connected to your printer
 
@@ -61,6 +70,8 @@ You will now be able to see a few details about the file you have selected. To s
 
 ### Upload Files
 
+**This feature is only available for Chitu based printers.**
+
 In your printers file list tap on the upload button in the lower right corner.
 
 Select the file you want to upload. If you want to save the file under a different name you can do so now.
@@ -68,9 +79,30 @@ Lastly tap on upload to start the file transfer.
 
 You can monitor the transfers progress in your notifications.
 
+### IP camera
+
+**This feature is experimental and some cameras might not be supported.**
+
+Go to the printers settings (on the details page tap on the gear icon).
+
+<img src="https://github.com/SG-O/photoNet/raw/master/doc/screenshot_webcam.jpg" height="400" />
+
+Enable the webcam feature and enter your video stream's URL.
+
 ## Planned features
 
 If you want a feature to be added to this app [feel free to create an issue](https://github.com/SG-O/photoNet/issues).
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
 

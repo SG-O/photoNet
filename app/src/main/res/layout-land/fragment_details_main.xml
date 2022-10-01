@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~   Copyright (C) 2022 Joerg Bayer (SG-O)
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~        http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout">
+
+    <TextView
+        android:id="@+id/details_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details_name_unknown"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/details_ip"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="@string/details_ip_default"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/details_name"
+        app:layout_constraintStart_toEndOf="@+id/details_name"
+        app:layout_constraintTop_toTopOf="@+id/details_name"
+        app:layout_constraintVertical_bias="0.615" />
+
+    <ImageView
+        android:id="@+id/details_status_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/image_of_printer"
+        app:layout_constraintBottom_toTopOf="@+id/datails_h_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_ip"
+        app:srcCompat="@drawable/ic_printer" />
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="256dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/datails_h_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_ip">
+
+        <de.sg_o.app.photonet.util.CustomVideoLayout
+            android:id="@+id/details_ip_cam"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00000000" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/details_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/details_status_unknown"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        app:layout_constraintBottom_toTopOf="@id/details_filename"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/details_status_image" />
+
+    <TextView
+        android:id="@+id/details_filename"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:maxLines="1"
+        android:minLines="1"
+        android:text="@string/details_file_unknown"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/datails_h_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/details_status_image" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/details_status"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/details_status_image"
+        app:layout_constraintTop_toBottomOf="@+id/details_name">
+
+        <ImageButton
+            android:id="@+id/details_stop"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:background="?android:attr/colorBackground"
+            android:contentDescription="@string/details_hint_stop"
+            app:srcCompat="@drawable/ic_baseline_stop_48" />
+
+        <ImageButton
+            android:id="@+id/details_pause_resume"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:attr/colorBackground"
+            android:contentDescription="@string/details_hint_pause_resume"
+            app:srcCompat="@drawable/ic_baseline_pause_48" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/datails_h_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/progressText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="60dp"
+            android:maxLines="1"
+            android:minWidth="60dp"
+            android:minLines="1"
+            android:text="@string/progress"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/details_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="30dp"
+            android:maxLines="1"
+            android:minWidth="30dp"
+            android:minLines="1"
+            android:text="@string/details_progress_default"
+            android:textAlignment="viewStart" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/zText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="30dp"
+            android:maxLines="1"
+            android:minWidth="30dp"
+            android:minLines="1"
+            android:text="@string/z_discriptor"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/details_z"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="30dp"
+            android:maxLines="1"
+            android:minWidth="30dp"
+            android:minLines="1"
+            android:text="@string/details_z_default"
+            android:textAlignment="viewStart" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="30dp"
+            android:maxLines="1"
+            android:minWidth="30dp"
+            android:minLines="1"
+            android:text="@string/time_discriptor"
+            android:textAlignment="viewEnd" />
+
+        <TextView
+            android:id="@+id/details_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxWidth="60dp"
+            android:maxLines="1"
+            android:minWidth="60dp"
+            android:minLines="1"
+            android:text="@string/details_time_default"
+            android:textAlignment="viewStart" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

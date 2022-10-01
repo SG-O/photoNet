@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements PrintersAdapter.I
 
     public static Environment ENVIRONMENT;
     public static SharedPreferences PREFS;
-    Handler handler = new Handler();
+    private final Handler handler = new Handler();
     MainActivity main;
 
     @Override
@@ -61,8 +61,14 @@ public class MainActivity extends AppCompatActivity implements PrintersAdapter.I
         setSupportActionBar(toolbar);
         PREFS = this.getSharedPreferences("PRINTER", Context.MODE_PRIVATE);
 
-        String savedPrinters = PREFS.getString("connected",null);
-        ENVIRONMENT = new Environment(savedPrinters, 2000);
+        if (ENVIRONMENT == null) {
+            String savedPrinters = PREFS.getString("connected", null);
+            ENVIRONMENT = new Environment(savedPrinters, 2000);
+        } else {
+            for (Printer p : ENVIRONMENT.getConnected()) {
+                p.update();
+            }
+        }
 
         RecyclerView recyclerView = findViewById(R.id.m_printers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -121,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements PrintersAdapter.I
         public void run() {
             for (int i = 0; i < ADAPTER.getItemCount(); i++) {
                 if (ADAPTER.getItem(i).getStatus().isUpdated()) {
+                    if (!ADAPTER.getItem(i).isInfoValid()) {
+                        ADAPTER.getItem(i).update();
+                    }
                     ADAPTER.notifyItemChanged(i);
                 }
             }

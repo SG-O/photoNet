@@ -19,7 +19,10 @@
 package de.sg_o.app.photonet.menu;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.content.res.Resources;
+import android.util.AttributeSet;
+import android.util.Xml;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,8 +30,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.SeekableAnimatedVectorDrawable;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 import de.sg_o.app.photonet.R;
 import de.sg_o.lib.photoNet.manager.Environment;
@@ -41,15 +49,13 @@ public class PrintersAdapter extends RecyclerView.Adapter<PrintersAdapter.ViewHo
     private final LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private ItemLongClickListener mLongClickListener;
-    private final Drawable offline;
-    private final Drawable online;
+    private final Context context;
 
     // data is passed into the constructor
     public PrintersAdapter(Context context, Environment data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-        offline = AppCompatResources.getDrawable(context, R.drawable.offline_thumb);
-        online = AppCompatResources.getDrawable(context, R.drawable.main_thumb);
+        this.context = context;
     }
 
     // inflates the row layout from xml when needed
@@ -66,16 +72,44 @@ public class PrintersAdapter extends RecyclerView.Adapter<PrintersAdapter.ViewHo
         String name = mData.getConnected().get(position).getName();
         String ip = mData.getConnected().get(position).getIp();
         Status.State status = mData.getConnected().get(position).getStatus().getState();
+        float progress = mData.getConnected().get(position).getStatus().getProgress();
         holder.name.setText(name);
         holder.ip.setText(ip);
         holder.status.setText(status.name());
         if (holder.curStat != status) {
-            holder.curStat = status;
-            if (status == Status.State.OFFLINE || status == Status.State.UNKNOWN) {
-                holder.thumb.setImageDrawable(offline);
-            } else {
-                holder.thumb.setImageDrawable(online);
+            if (context != null) {
+                int animateTime = 100;
+                Resources.Theme theme = new ContextThemeWrapper(context, R.style.Theme_PhotoNet_PrinterStatus_Offline).getTheme();
+                if (status == Status.State.PRINTING || status == Status.State.PAUSE) {
+                    animateTime = Math.max(Math.min(Math.round(progress * 100.0f), 100), 0);
+                    theme = new ContextThemeWrapper(context, R.style.Theme_PhotoNet_PrinterStatus_Printing).getTheme();
+                } else {
+                    if (status == Status.State.FINISHED) {
+                        theme = new ContextThemeWrapper(context, R.style.Theme_PhotoNet_PrinterStatus_Finished).getTheme();
+                    }
+                    if (status == Status.State.IDLE) {
+                        theme = new ContextThemeWrapper(context, R.style.Theme_PhotoNet_PrinterStatus_Idle).getTheme();
+                    }
+                }
+
+                try {
+                    //noinspection AndroidLintResourceType - Parse drawable as XML.
+                    final XmlPullParser parser = context.getResources().getXml(R.drawable.ic_printer);
+                    final AttributeSet attrs = Xml.asAttributeSet(parser);
+                    int type;
+                    do {
+                        type = parser.next();
+                    } while (type != XmlPullParser.START_TAG && type != XmlPullParser.END_DOCUMENT);
+                    if (type != XmlPullParser.START_TAG) {
+                        throw new XmlPullParserException("");
+                    }
+                    SeekableAnimatedVectorDrawable drawable = SeekableAnimatedVectorDrawable.createFromXmlInner(context.getResources(), parser, attrs, theme);
+                    drawable.setCurrentPlayTime(animateTime);
+                    holder.thumb.setImageDrawable(drawable);
+                } catch (XmlPullParserException | IOException ignore) {
+                }
             }
+            holder.curStat = status;
         }
     }
 
@@ -87,10 +121,10 @@ public class PrintersAdapter extends RecyclerView.Adapter<PrintersAdapter.ViewHo
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        TextView name;
-        TextView ip;
-        TextView status;
-        ImageView thumb;
+        private final TextView name;
+        private final TextView ip;
+        private final TextView status;
+        private final ImageView thumb;
 
         Status.State curStat = Status.State.UNKNOWN;
 

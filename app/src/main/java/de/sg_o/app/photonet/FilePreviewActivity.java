@@ -47,14 +47,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import de.sg_o.app.photonet.databinding.ActivityFilePreviewBinding;
-import de.sg_o.app.photonet.filetransfer.TransferService;
-import de.sg_o.app.photonet.filetransfer.TransferWorker;
+import de.sg_o.app.photonet.fileTransfer.TransferService;
+import de.sg_o.app.photonet.fileTransfer.TransferWorker;
 import de.sg_o.app.photonet.localFile.PreviewFile;
 import de.sg_o.app.photonet.ui.main.FilesFragment;
 import de.sg_o.lib.photoNet.netData.FileListItem;
 import de.sg_o.lib.photoNet.netData.FolderList;
-import de.sg_o.lib.photoNet.photonFile.PhotonFile;
-import de.sg_o.lib.photoNet.photonFile.PhotonFileMeta;
+import de.sg_o.lib.photoNet.printFile.PrintFileMeta;
+import de.sg_o.lib.photoNet.printFile.photon.PhotonPrintFile;
 import de.sg_o.lib.photoNet.printer.Folder;
 
 public class FilePreviewActivity extends AppCompatActivity {
@@ -155,7 +155,7 @@ public class FilePreviewActivity extends AppCompatActivity {
                     long fileLength = pfd.getStatSize();
                     if (fileLength > 0) {
                         ParcelFileDescriptor.AutoCloseInputStream fileInputStream = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
-                        this.file = new PreviewFile(this, new PhotonFile(fileInputStream, fileLength));
+                        this.file = new PreviewFile(this, new PhotonPrintFile(fileInputStream, fileLength));
                         this.file.update();
                     }
                 }
@@ -179,7 +179,7 @@ public class FilePreviewActivity extends AppCompatActivity {
     }
 
     private void updateMeta() {
-        PhotonFileMeta meta = file.getMeta();
+        PrintFileMeta meta = file.getMeta();
         if (meta != null) {
             this.layerSeek.setEnabled(true);
             this.layerSeek.setMax(meta.getNrLayers() - 1);

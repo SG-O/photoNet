@@ -34,12 +34,9 @@ import de.sg_o.app.photonet.menu.DependencyAdapter;
 
 public class AboutActivity extends AppCompatActivity {
 
-    private AboutActivity about;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        about = this;
         de.sg_o.app.photonet.databinding.ActivityAboutBinding binding = ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.aboutToolbar);
@@ -59,7 +56,7 @@ public class AboutActivity extends AppCompatActivity {
         });
         LinearLayout license = findViewById(R.id.about_license);
         license.setOnClickListener(view -> {
-            Intent intent = new Intent(about, LicenseActivity.class);
+            Intent intent = new Intent(this, LicenseActivity.class);
             startActivity(intent);
         });
     }
