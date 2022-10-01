@@ -19,6 +19,7 @@
 package de.sg_o.app.photonet;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.LinearLayout;
@@ -28,6 +29,19 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import de.sg_o.app.photonet.databinding.ActivityAboutBinding;
 import de.sg_o.app.photonet.menu.DependencyAdapter;
@@ -45,6 +59,43 @@ public class AboutActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+        TextView contributors = findViewById(R.id.about_contributors_list);
+
+        Resources res = this.getResources();
+        InputStream inputStream = res.openRawResource(R.raw.all_contributorsrc);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+        } catch (IOException ignore) {
+        } finally {
+            try {
+                inputStream.close();
+            } catch (IOException ignore) {
+            }
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            JSONObject reader = new JSONObject(writer.toString());
+            JSONArray con = reader.getJSONArray("contributors");
+            for (int i = 0; i < con.length(); i++) {
+                JSONObject c = con.getJSONObject(i);
+                builder.append(c.getString("name"));
+                builder.append(" (");
+                builder.append(c.getString("login"));
+                builder.append(")\n");
+            }
+        } catch (JSONException ignore) {
+        }
+
+        contributors.setText(builder.toString().trim());
+
         TextView sgo = findViewById(R.id.about_sgo);
         RecyclerView recyclerView = findViewById(R.id.about_dependencies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
