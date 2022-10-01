@@ -34,7 +34,6 @@ I am not responsible for ANY damages resulting from you using this software.
 * Upload files to your printer (these have to be pre sliced, only available on Chitu based printers)
 * Manage (list, delete, download) files stored on the storage device attached to your printer
 * Monitor your print progress through an optional IP camera (Experimental!)
-* 
 
 ## Requirements
 
@@ -92,6 +91,8 @@ Go to the printers settings (on the details page tap on the gear icon).
 Enable the webcam feature and enter your video stream's URL.
 
 ## Planned features
+
+Planned features are [tracked here](https://github.com/users/SG-O/projects/1).
 
 If you want a feature to be added to this app [feel free to create an issue](https://github.com/SG-O/photoNet/issues).
 
