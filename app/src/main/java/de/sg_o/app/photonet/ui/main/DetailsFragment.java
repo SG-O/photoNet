@@ -159,7 +159,7 @@ public class DetailsFragment extends Fragment {
             filename.post(() -> filename.setText(formatOpenedFile(s.getOpenedFile())));
             progress.post(() -> progress.setText(MessageFormat.format("{0}%", (int) (s.getProgress() * 100.0f))));
             z.post(() -> z.setText(MessageFormat.format("{0}mm", s.getZ())));
-            time.post(() -> time.setText(MessageFormat.format("{0}s", s.getTime())));
+            formatTime();
 
             Context context = getContext();
             if (context != null) {
@@ -220,7 +220,7 @@ public class DetailsFragment extends Fragment {
             filename.setText(formatOpenedFile(s.getOpenedFile()));
             progress.setText(MessageFormat.format("{0}%", (int) (s.getProgress() * 100.0f)));
             z.setText(MessageFormat.format("{0}mm", s.getZ()));
-            time.setText(MessageFormat.format("{0}s", s.getTime()));
+            formatTime();
         }
         mVideoLayout.setVisibility(View.INVISIBLE);
         statusImage.setVisibility(View.VISIBLE);
@@ -235,6 +235,20 @@ public class DetailsFragment extends Fragment {
             }
         }
         handler.postDelayed(updatePrinters, 2000);
+    }
+
+    private void formatTime() {
+        Status s = p.getStatus();
+        if (s.getTime().getHours() > 0) {
+            time.post(() -> time.setText(MessageFormat.format("{0}:{1}:{2}",
+                    s.getTime().getHours(), s.getTime().getMinutes(), s.getTime().getSeconds())));
+        } else if (s.getTime().getMinutes() > 0) {
+            time.post(() -> time.setText(MessageFormat.format("{0}m {1}s",
+                    s.getTime().getMinutes(), s.getTime().getSeconds())));
+        } else {
+            time.post(() -> time.setText(MessageFormat.format("{0}s",
+                    s.getTime().getSeconds())));
+        }
     }
 
     private String formatOpenedFile(String in) {
