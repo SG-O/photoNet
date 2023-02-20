@@ -45,8 +45,8 @@ android {
         applicationId "de.sg_o.app.photonet"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 5
-        versionName '0.5'
+        versionCode 6
+        versionName '0.6'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled false
@@ -85,7 +85,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    ndkVersion '25.1.8937393'
+    ndkVersion '25.2.9519653'
     buildFeatures {
         viewBinding true
     }
@@ -97,11 +97,11 @@ android {
 }
 
 dependencies {
-    implementation 'de.sg-o.lib:photoNet:0.12'
+    implementation 'de.sg-o.lib:photoNet:0.13'
     implementation 'org.videolan.android:libvlc-all:3.5.1'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
-    implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment:2.5.3'
     implementation 'androidx.navigation:navigation-ui:2.5.3'
@@ -111,6 +111,6 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable-seekable:1.0.0-beta01'
     implementation 'androidx.preference:preference:1.2.0'
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

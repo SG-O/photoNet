@@ -97,6 +97,8 @@ public class AboutActivity extends AppCompatActivity {
         contributors.setText(builder.toString().trim());
 
         TextView sgo = findViewById(R.id.about_sgo);
+        TextView version = findViewById(R.id.about_version);
+        version.setText(String.format("v%s", BuildConfig.VERSION_NAME));
         RecyclerView recyclerView = findViewById(R.id.about_dependencies);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         DependencyAdapter adapter = new DependencyAdapter(this);

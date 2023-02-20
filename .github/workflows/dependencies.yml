@@ -21,13 +21,13 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.6
+          gradle-version: 7.4.1
           
       - name: Install build tools
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "build-tools;33.0.1" --sdk_root=${ANDROID_SDK_ROOT}
 
       - name: Install NDK
-        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;25.1.8937393" --sdk_root=${ANDROID_SDK_ROOT}
+        run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;25.2.9519653" --sdk_root=${ANDROID_SDK_ROOT}
         
       - name: Initialize gradle
         run: |

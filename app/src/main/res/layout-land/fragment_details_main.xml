@@ -19,10 +19,9 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/relativeLayout">
+    android:id="@+id/details_layout">
 
     <TextView
         android:id="@+id/details_name"
@@ -56,7 +55,7 @@
         android:layout_marginEnd="256dp"
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/image_of_printer"
-        app:layout_constraintBottom_toTopOf="@+id/datails_h_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/details_ip"
@@ -71,7 +70,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="256dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/datails_h_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/details_ip">
@@ -87,34 +86,36 @@
         android:id="@+id/details_status"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="@string/details_status_unknown"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@id/details_filename"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintStart_toEndOf="@+id/details_status_image" />
 
     <TextView
         android:id="@+id/details_filename"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:maxLines="1"
         android:minLines="1"
         android:text="@string/details_file_unknown"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@id/datails_h_layout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
         app:layout_constraintStart_toEndOf="@+id/details_status_image" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/details_status"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/details_status_image"
         app:layout_constraintTop_toBottomOf="@+id/details_name">
 
         <ImageButton
@@ -138,46 +139,19 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/datails_h_layout"
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/progressText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxWidth="60dp"
-            android:maxLines="1"
-            android:minWidth="60dp"
-            android:minLines="1"
-            android:text="@string/progress"
-            android:textAlignment="viewEnd" />
-
-        <TextView
-            android:id="@+id/details_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxWidth="30dp"
-            android:maxLines="1"
-            android:minWidth="30dp"
-            android:minLines="1"
-            android:text="@string/details_progress_default"
-            android:textAlignment="viewStart" />
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toEndOf="@+id/details_status_image">
 
         <TextView
             android:id="@+id/zText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxWidth="30dp"
@@ -189,7 +163,7 @@
 
         <TextView
             android:id="@+id/details_z"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxWidth="30dp"
@@ -199,14 +173,9 @@
             android:text="@string/details_z_default"
             android:textAlignment="viewStart" />
 
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
         <TextView
             android:id="@+id/timeText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxWidth="30dp"
@@ -218,7 +187,7 @@
 
         <TextView
             android:id="@+id/details_time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:maxWidth="60dp"
@@ -228,5 +197,19 @@
             android:text="@string/details_time_default"
             android:textAlignment="viewStart" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/details_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxWidth="30dp"
+        android:maxLines="1"
+        android:minWidth="30dp"
+        android:minLines="1"
+        android:text="@string/details_progress_default"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toBottomOf="@+id/details_status_image"
+        app:layout_constraintStart_toStartOf="@+id/details_status_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
