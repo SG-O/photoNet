@@ -21,7 +21,7 @@ jobs:
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: 7.6.0
+          gradle-version: 7.6
           
       - name: Install build tools
         run: echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "build-tools;33.0.1" --sdk_root=${ANDROID_SDK_ROOT}
