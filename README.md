@@ -96,6 +96,10 @@ Planned features are [tracked here](https://github.com/users/SG-O/projects/1).
 
 If you want a feature to be added to this app [feel free to create an issue](https://github.com/SG-O/photoNet/issues).
 
+## Developers
+
+The communication with the printer is handled by [a seperate library.](https://github.com/SG-O/photoNetLib) Please take a look at it if you want to integrate functions of the app in your applications.
+
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
